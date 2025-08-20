@@ -1,14 +1,21 @@
 import React from 'react'
 import {useDispatch , useSelector} from 'react-redux'
 import './App.css'
-import { userList } from './Data.jsx'
-import Add from './assets/components/Add.jsx'
 import { Link } from 'react-router-dom'
-import Update from './assets/components/Update.jsx'
+import {deleteUser} from './UserRedux'
+
 
 function Home() {
     const users = useSelector((state)=> state.users)
     console.log(users);
+
+    const dispatch =useDispatch()
+
+    const handleDelete = (id) =>{
+      console.log(id);
+      dispatch(deleteUser({id:id}))
+      
+    }
     
   return (
   <div className="min-h-screen bg-gray-100 p-8">
@@ -42,7 +49,8 @@ function Home() {
                 <Link to={`/update/${user.id}`} className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
                   Edit
                 </Link>
-                <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                onClick={()=>handleDelete(user.id)}>
                   Delete
                 </button>
               </td>

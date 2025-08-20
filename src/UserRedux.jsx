@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {userList}from './Data.jsx'
-import Update from './assets/components/Update.jsx';
+
 
 const userSlice = createSlice({
     name : 'users',
@@ -19,9 +19,17 @@ const userSlice = createSlice({
                 uu.name = name;
                 uu.email = email;
             }
+        },
+        deleteUser:(state,action)=>{
+            const {id} =action.payload
+            const uu =state.find(user=>user.id==id)
+            if(uu){
+                return state.filter(f=> f.id!==id)
+            }
+
         }
     }
 })
-export const{addUser,UpdateUser}=userSlice.actions
+export const{addUser,UpdateUser,deleteUser}=userSlice.actions
 
 export default userSlice.reducer
